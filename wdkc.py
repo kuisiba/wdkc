@@ -4,6 +4,7 @@ import sys
 
 FONT_PATH = "./.fonts/NotoSansMonoCJKjp-Regular.otf"
 
+
 def load_dic():
     dic = {
         "曜": ["土曜", "月曜", "金曜", "日曜", "曜日"],
@@ -218,7 +219,7 @@ def create_text(ans, four):
         elif i == 1:
             right_char = four[i][0] if four[i][1] == ans else four[i][1]
             right_arrow = "←" if four[i][1] == ans else "→"
-        elif i ==2:
+        elif i == 2:
             lower_char = four[i][0] if four[i][1] == ans else four[i][1]
             lower_arrow = "↑" if four[i][1] == ans else "↓"
         elif i == 3:
@@ -246,15 +247,41 @@ def create_img(ans, four):
 
 
 def main():
+    args = sys.argv
+    if len(args) != 2:
+        if len(args) == 1:
+            print("引数を指定してください")
+            sys.exit(1)
+        elif 2 < len(args):
+            print("引数は一つだけ指定してください")
+            sys.exit(1)
+    elif not args[1].isdigit():
+        print("引数は数値を指定してください")
+        sys.exit(1)
+    elif 200 < int(args[1]):
+        print("引数は200以下にしてください")
+        sys.exit(1)
+
     dic = load_dic()
 
-    # 和同開珎の答えと、問題4単語を取り出す
-    ans = random.choice(list(dic.keys()))
-    four = random.sample(dic[ans], 4)
+    selected = []
+    counter = 0
+    while counter < int(args[1]):
+        # 和同開珎の答えと、問題4単語を取り出す
+        ans = random.choice(list(dic.keys()))
+        four = random.sample(dic[ans], 4)
 
-    img = create_img(ans, four)
-    img.save("./test.jpg")
+        if ans in selected and len(dic[ans]) == 4:
+            continue
 
+        selected.append(ans)
+        counter += 1
+
+        img = create_img(ans, four)
+        img_path = "./result/" + str(counter) + ".jpg"
+        img.save(img_path)
+
+    print("generated.")
 
 if __name__ == '__main__':
     main()
