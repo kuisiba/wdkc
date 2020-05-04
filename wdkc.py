@@ -2,6 +2,7 @@ from PIL import Image, ImageDraw, ImageFont
 import random
 import sys
 
+FONT_PATH = "./.fonts/NotoSansMonoCJKjp-Regular.otf"
 
 def load_dic():
     dic = {
@@ -239,7 +240,7 @@ def create_img(ans, four):
     text = create_text(ans, four)
     img = Image.new("RGB", (450, 500), "white")
     draw = ImageDraw.Draw(img)
-    fnt = ImageFont.truetype("./.fonts/NotoSansMonoCJKjp-Regular.otf", 72)
+    fnt = ImageFont.truetype(FONT_PATH, 72)
     draw.text((40, 0), text, font=fnt, fill=(0, 0, 0, 255))
     return img
 
