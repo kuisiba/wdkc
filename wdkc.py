@@ -2,7 +2,7 @@ from PIL import Image, ImageDraw, ImageFont
 import random
 import sys
 
-FONT_PATH = "./.fonts/NotoSansMonoCJKjp-Regular.otf"
+FONT_PATH = "./.fonts/your_favorite_monospace_font_file.otf"
 
 
 def load_dic():
